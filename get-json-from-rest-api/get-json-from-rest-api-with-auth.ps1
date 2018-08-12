@@ -1,4 +1,4 @@
-# function stores or loades files variables depending on if variables.xml exists
+# function stores or loads script variables
 # see https://ugliscripts.com/storing-script-variables for details on Get-Variables
 function Get-Variables ($path) {
     
@@ -31,7 +31,7 @@ function Get-Variables ($path) {
     }
 }
 
-# function stores a string securely
+# function stores or loads a string securely
 # see https://ugliscripts.com/storing-secure-strings for details on Get-Secret 
 function Get-Secret ($path) {
     
