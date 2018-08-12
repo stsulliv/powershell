@@ -1,4 +1,4 @@
-# storing-secure-string.ps1 - Sample file to store and load a string securely
+# storing-secure-string.ps1 - using powershell to store and load a string securely in an external file
 
 # store or loads secure string 
 function Get-Secret ($PathRoot) {
