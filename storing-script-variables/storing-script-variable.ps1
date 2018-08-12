@@ -1,10 +1,10 @@
-# storing-script-variable.ps1 - Sample script to store and load a file with variables
+# powershell script to store and load variables from an external file
 
-# function stores or loades files variables
-function Get-Variables ($PathRoot) {
+# function stores or loades files variables depending on if variables.xml exists
+function Get-Variables ($FilePath) {
     
-    # check if the file already exists, if not create it
-    if (!([System.IO.File]::Exists("$PathRoot\variables.xml"))) {
+    # check if variables.xml already exists, if not create it
+    if (!([System.IO.File]::Exists("$FilePath\variables.xml"))) {
         
         Write-Host 'storing configuration ...'
         
@@ -13,14 +13,14 @@ function Get-Variables ($PathRoot) {
         $favorite_color = Read-Host 'Please enter your favorite color'
 
         # use a HashTable to store configuration parameters
-        $Config =@{FirstName=$first_name;
+        $HashTable =@{FirstName=$first_name;
                     LastName=$last_name;
                     FavoriteColor=$favorite_color}
         
         # write HashTable to XML
-        $Config | export-clixml "$PathRoot\variables.xml"
+        $HashTable | export-clixml "$FilePath\variables.xml"
 
-        return $Config
+        return $HashTable
     }
 
     # if there is an existing file, load the variables
@@ -28,23 +28,23 @@ function Get-Variables ($PathRoot) {
         
         Write-Host 'loading configuration ...'
         
-        $Variables = Import-Clixml "$PathRoot\variables.xml"
+        $HashTable = Import-Clixml "$FilePath\variables.xml"
 
-        return $Variables
+        return $HashTable
     }
 }
 
 ################################# Starting Main Script #################################
 
-# run Get-Config - returns HashTable of parameters
+# run Get-Variables - returns HashTable of parameters
 # $PSScriptRoot is current script directory
 
-$Variables = Get-Variables $PSScriptRoot
+$HashTable = Get-Variables $PSScriptRoot
 
 # access data using $Config.<parameter>
 
-Write-Host "First name is" $Variables.FirstName
-Write-Host "Last name is" $Variables.LastName
-Write-Host "Favorite color:" $Variables.FavoriteColor
+Write-Host "First name is" $HashTable.FirstName
+Write-Host "Last name is" $HashTable.LastName
+Write-Host "Favorite color:" $HashTable.FavoriteColor
 
 Exit
