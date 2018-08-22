@@ -81,6 +81,20 @@ try {
 
 'SUCCESS...Connected to Microsoft Online Service (MSO)'
 
+# Connect to Azure AD (AAD)
+try {
+
+    Connect-AzureAD -Credential $Credential
+
+    
+    } catch {
+        
+        'STOPPING...Could not connect to Azure AD (AAD)'
+        Stop
+    }
+
+'SUCCESS...Connected to Azure AD (AAD)'
+
 'Before closing window run Get-PSSession | Remove-PSSession to close Exo and Eop sessions'
 
 #################### the resulting prompt is connected to Exchange Online, EOP and Azure AD ########################
